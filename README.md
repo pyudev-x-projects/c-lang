@@ -8,3 +8,7 @@ Install by running:
 ```sh
 cargo install c-lang
 ```
+OR
+```sh
+cargo install --git "https://github.com/pyudev-x-projects/c-lang"
+```
