@@ -125,7 +125,9 @@ fn main() -> io::Result<()> {
             }
 
             _ => {
-                println!("Invalid syntax...");
+                if !block.starts_with("//") {
+                    println!("Invalid syntax...");
+                }
             }
         }
     }
