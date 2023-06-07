@@ -1,15 +1,15 @@
 use pyu_rust_util as pyu;
 use std::env;
 use std::fs;
-use std::fs::*;
-use std::io;
-use std::io::BufRead;
-use std::io::BufReader;
+use std::io::*;
+mod util;
+use crate::util::*;
 
-fn main() -> io::Result<()> {
+
+fn main() -> Result<()> {
     let args: Vec<String> = env::args().collect();
 
-    let file = File::open(args[1].trim()).expect("File not found.");
+    let file = fs::File::open(args[1].trim()).expect("File not found.");
     let reader = BufReader::new(file);
     let mut var = String::from("nil");
 
@@ -122,6 +122,22 @@ fn main() -> io::Result<()> {
             "nfilev" => {
                 fs::File::create(var.trim())?;
                 println!("New file created at: {}", var.trim());
+            }
+            
+            "exec" => {
+                let output = pyu::exec(collection[1], collection[2]);
+                
+                pyu::output(output);
+            }
+            
+            "execv" => {
+                let output = pyu::exec(collection[1], &var.trim());
+                
+                pyu::output(output); 
+            }
+            
+            "date" => {
+                date();
             }
 
             _ => {
