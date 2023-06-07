@@ -138,6 +138,7 @@ fn main() -> Result<()> {
             
             "date" => {
                 date();
+                
             }
 
             _ => {
