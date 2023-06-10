@@ -2,9 +2,10 @@ use pyu_rust_util as pyu;
 use std::env;
 use std::fs;
 use std::io::*;
+use std::thread::sleep;
+use std::time::Duration;
 mod util;
 use crate::util::*;
-
 
 fn main() -> Result<()> {
     let args: Vec<String> = env::args().collect();
@@ -12,6 +13,8 @@ fn main() -> Result<()> {
     let file = fs::File::open(args[1].trim()).expect("File not found.");
     let reader = BufReader::new(file);
     let mut var = String::from("nil");
+    let mut show_errors = true;
+    let mut ignore_errors = true;
 
     for v in reader.lines() {
         let line = v?;
@@ -39,6 +42,16 @@ fn main() -> Result<()> {
 
             "printv" => {
                 println!("{}", var.trim());
+            }
+
+            "printpv" => {
+               for v in collection {
+                    if v != block {
+                        print!("{} ", v.trim());
+                    }
+                }
+               
+               println!("{}", var.trim()); 
             }
 
             "input" => {
@@ -78,12 +91,11 @@ fn main() -> Result<()> {
             }
 
             "lorem" => {
-                println!("Lorem ipsum dolor sit amet, consectetur adipisicing elit. (Latin)");
-                println!("It is very important for the customer to pay attention to the undergraduate process. (English - Translated)");
+                lorem();
             }
 
             "newl" => {
-                println!("");
+                newl();
             }
 
             "curl" => {
@@ -123,27 +135,57 @@ fn main() -> Result<()> {
                 fs::File::create(var.trim())?;
                 println!("New file created at: {}", var.trim());
             }
-            
+
             "exec" => {
                 let output = pyu::exec(collection[1], collection[2]);
-                
+
                 pyu::output(output);
             }
-            
+
             "execv" => {
                 let output = pyu::exec(collection[1], &var.trim());
-                
-                pyu::output(output); 
+
+                pyu::output(output);
             }
-            
+
             "date" => {
                 date();
-                
+            }
+
+            "wait" => {
+                let secs: u64 = collection[1].parse().unwrap();
+
+                sleep(Duration::from_secs(secs));
+            }
+
+            "delfile" => {
+                println!("{} deleted", args[1].trim());
+                fs::remove_file(args[1].trim())?;
+            }
+
+            "clear" => {
+                clear();
             }
 
             _ => {
-                if !block.starts_with("//") {
-                    println!("Invalid syntax...");
+                if block.starts_with("#[lint_errors()]") {
+                    show_errors = !show_errors;
+                }
+
+                else if block.starts_with("#[ignore_errors()]") {
+                    ignore_errors = !ignore_errors;
+                }
+                
+                else if !block.starts_with("//") {
+                    if show_errors {
+                        if ignore_errors {
+                            println!("An error occured during the code! Continuing because [ignore_errors] is true.");
+                        }
+                        else {
+                            println!("An error occured during the code! Exiting because [ignore_errors] is false.");
+                            return Ok(());
+                        }
+                    }
                 }
             }
         }
