@@ -23,6 +23,10 @@ fn main() -> Result<()> {
 
         let collection = split.collect::<Vec<&str>>();
 
+        if collection.is_empty() {
+            continue;
+        }
+
         let block = collection[0];
 
         match block.trim() {
@@ -45,13 +49,13 @@ fn main() -> Result<()> {
             }
 
             "printpv" => {
-               for v in collection {
+                for v in collection {
                     if v != block {
                         print!("{} ", v.trim());
                     }
                 }
-               
-               println!("{}", var.trim()); 
+
+                println!("{}", var.trim());
             }
 
             "input" => {
@@ -167,21 +171,18 @@ fn main() -> Result<()> {
                 clear();
             }
 
+            "" => {}
+
             _ => {
                 if block.starts_with("#[lint_errors()]") {
                     show_errors = !show_errors;
-                }
-
-                else if block.starts_with("#[ignore_errors()]") {
+                } else if block.starts_with("#[ignore_errors()]") {
                     ignore_errors = !ignore_errors;
-                }
-                
-                else if !block.starts_with("//") {
+                } else if !block.starts_with("//") {
                     if show_errors {
                         if ignore_errors {
                             println!("An error occured during the code! Continuing because [ignore_errors] is true.");
-                        }
-                        else {
+                        } else {
                             println!("An error occured during the code! Exiting because [ignore_errors] is false.");
                             return Ok(());
                         }

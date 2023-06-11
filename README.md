@@ -2,8 +2,6 @@
 
 Since C-Lang has no lexer there are some issues.
 
-You cannot have empty lines or else the Rust compiler will complain: "index out of bounds: the len is 0 but the index is 0"
-
 ## Installation
 
 Install by running:
