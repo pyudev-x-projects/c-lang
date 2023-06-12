@@ -4,12 +4,13 @@ use std::fs;
 use std::io::*;
 use std::thread::sleep;
 use std::time::Duration;
+use rand::*;
 mod util;
 use crate::util::*;
 
 fn main() -> Result<()> {
     let args: Vec<String> = env::args().collect();
-
+    let mut rng = thread_rng();
     let file = fs::File::open(args[1].trim()).expect("File not found.");
     let reader = BufReader::new(file);
     let mut var = String::from("nil");
@@ -97,7 +98,7 @@ fn main() -> Result<()> {
             "lorem" => {
                 lorem();
             }
-
+// Line 100!
             "newl" => {
                 newl();
             }
@@ -163,12 +164,66 @@ fn main() -> Result<()> {
             }
 
             "delfile" => {
-                println!("{} deleted", args[1].trim());
                 fs::remove_file(args[1].trim())?;
+                println!("{} deleted", args[1].trim());
+            }
+
+            "delfolder" => {
+                fs::remove_dir(args[1].trim())?;
+                println!("{} deleted", args[1].trim());
             }
 
             "clear" => {
                 clear();
+            }
+
+            "sound" => {
+                let dur: u64 = collection[2].parse().unwrap();
+                
+                pyu::play_sound(collection[1].trim(), dur);
+            }
+
+            "soundv" => {
+                let dur: u64 = collection[1].parse().unwrap();
+                
+                pyu::play_sound(var.trim(), dur);
+            }
+
+            "js" => {
+                let o = pyu::exec("node", collection[1].trim());
+                pyu::output(o);
+            }
+
+            "lua" => {
+                let o = pyu::exec("lua", collection[1].trim());
+                pyu::output(o);
+            }
+// Line 200!
+
+            "chair" => {
+                chair();
+            }
+
+            "11" => {
+                println!("3.");
+            }
+            
+            "delscript" => {
+                fs::remove_file(args[1].trim())?;
+                println!("Script deleted.");
+            }
+
+            "saturn" => {
+                saturn();
+            }
+
+            "rand" => {
+                let r1: i32 = collection[1].trim().parse().unwrap();
+                let r2: i32 = collection[2].trim().parse().unwrap();
+                
+                let v: i32 = rng.gen_range(r1..r2);
+                
+                var = v.to_string();
             }
 
             "" => {}
@@ -176,13 +231,17 @@ fn main() -> Result<()> {
             _ => {
                 if block.starts_with("#[lint_errors()]") {
                     show_errors = !show_errors;
-                } else if block.starts_with("#[ignore_errors()]") {
+                }
+                else if block.starts_with("#[ignore_errors()]") {
                     ignore_errors = !ignore_errors;
-                } else if !block.starts_with("//") {
+                } 
+                else if !block.starts_with("//") {
                     if show_errors {
                         if ignore_errors {
                             println!("An error occured during the code! Continuing because [ignore_errors] is true.");
-                        } else {
+                        } 
+                        
+                        else {
                             println!("An error occured during the code! Exiting because [ignore_errors] is false.");
                             return Ok(());
                         }
@@ -194,6 +253,7 @@ fn main() -> Result<()> {
 
     pyu::change_color("white");
     println!("\n\nRan program: {}", args[1].trim());
+    
 
     return Ok(());
 }

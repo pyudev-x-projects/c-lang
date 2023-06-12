@@ -52,8 +52,16 @@ To set a variable with input you can use the `input` keyword
 ```
 print Enter your name please!
 input
+
 print Your name is:
 printv
+```
+
+To print a variable right beside some text you can use `printpv`
+```
+set Bob.
+printpv Your name is:
+// Outputs: Your name is: Bob
 ```
 
 There are much more keywords to use variables but we will explain those later.
@@ -64,11 +72,12 @@ There are much more keywords to use variables but we will explain those later.
 
 You can change the color of the output with a simple keyword!
 
-
 ```
 setclr red
 print I am red!
+
 setclr blue
+
 print I am blue!
 ```
 
@@ -77,8 +86,29 @@ List of colors are: red, blue, green, yellow, magenta, cyan, white, black
 You can clear the output using `clear`
 ```
 print I am not visible!
+
 clear
+
 print Terminal cleared.
+```
+
+You can count to a specific number using `count`
+```
+count 14
+```
+
+To create empty lines in the output you can use `newl`
+```
+print Hello!
+
+newl
+
+print New line, New experience!
+```
+
+You can print out the date using `date`
+```
+date
 ```
 
 #### Fun
@@ -89,8 +119,24 @@ Well there is a shorter version of the snippet in this language.
 
 Just call: `lorem`
 
+Chair.
 
-## Math
+```
+chair
+```
+
+Legit binary conversion??
+```
+11
+```
+
+Saturn!
+```
+saturn
+```
+
+
+### Math
 
 For math there is a keyword called `printc`
 Which stands for: "print calculation"
@@ -100,28 +146,37 @@ You can use it like this
 ```
 // Addition
 printc 4 + 3
+
 // Subtraction
 printc 4 - 3
+
 // Multiplication
 printc 4 * 3
+
 // Division
 printc 4 / 3
+
 ```
 
 You must include a whitespace between each argument or else it will result in an error!
 
-## Filesystem
+It is possible to generate random numbers using the `rand` keyword.
+It will set the value of the variable to the randomly generated number!
+```
+rand 0 5
+// Generates a random number between 0 and 5.
+```
+
+### Filesystem
 
 C-Lang has a **very** basic way of interacting with the file system
-
-You can really only create files and directory. You cant even delete them (For now)
 
 Files are created file this:
 ```
 nfile /path/to/file
 ```
 
-Directorys are created like:
+Directories are created like:
 ```
 ndir /path/to/directory
 ```
@@ -133,4 +188,54 @@ You can also use variables
 ndirv
 // Creates a file on behalf of the variable
 nfilev
+```
+
+You can remove directories and files like this::
+```
+//Files
+delfile /path/to/file
+
+// Directories
+delfolder /path/to/directory
+```
+
+You can delete the script using
+```
+delscript
+```
+### Extensibility
+
+You can run JS and Lua in C-Lang without using the `exec` command.
+
+JS:
+```
+js file.js
+```
+
+Lua:
+```
+lua file.lua
+```
+
+### Audio
+
+Wow this scripting language has alot of built-in features, it has no package system so I guess thats fair.
+
+Play audio files using:
+```
+sound /path/to/file timelength
+```
+
+You can use variables:
+```
+soundv timelength
+```
+
+### Delays
+
+You can create delays.
+
+```
+wait amount_of_seconds
+print Delayed!
 ```
