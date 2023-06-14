@@ -1,4 +1,22 @@
-# 2023 Jun 11: Addition Update
+# 2023 Jun 13: Normal Feature Update
+
+Added `randclr` keyword.
+
+Added `randclr` to the docs.
+
+Added pictures to the README.md.
+
+Added `wget` and `wgetv` commands and added them to the docs.
+
+Added two new images 'extension.png' and 'saturn.png'.
+
+Changed the 'Addition Update' to 'Huge Update' to match the commit message.
+
+Added wiki page to git repository.
+
+Very little formatting changes.
+
+# 2023 Jun 11: Huge Update
 
 Add sounds.
 

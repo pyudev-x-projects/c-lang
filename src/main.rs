@@ -5,10 +5,13 @@ use std::io::*;
 use std::thread::sleep;
 use std::time::Duration;
 use rand::*;
+use rand::prelude::SliceRandom;
 mod util;
 use crate::util::*;
 
 fn main() -> Result<()> {
+    let colors = vec!["red", "yellow", "green", "blue", "magenta", "cyan", "white", "black"];
+    
     let args: Vec<String> = env::args().collect();
     let mut rng = thread_rng();
     let file = fs::File::open(args[1].trim()).expect("File not found.");
@@ -16,6 +19,7 @@ fn main() -> Result<()> {
     let mut var = String::from("nil");
     let mut show_errors = true;
     let mut ignore_errors = true;
+    // My code, is the most unreadable type of code.
 
     for v in reader.lines() {
         let line = v?;
@@ -109,6 +113,14 @@ fn main() -> Result<()> {
 
             "curlv" => {
                 pyu::curl(var.trim());
+            }
+
+            "wget" => {
+                pyu::exec("wget", collection[1]);
+            }
+
+            "wgetv" => {
+                pyu::exec("wget", var.trim());
             }
 
             "count" => {
@@ -206,6 +218,9 @@ fn main() -> Result<()> {
 
             "11" => {
                 println!("3.");
+                if rng.gen_range(0..3) == 2{
+                    println!("LEGIT BINARY CONVERSION!!!!")
+                }
             }
             
             "delscript" => {
@@ -224,6 +239,12 @@ fn main() -> Result<()> {
                 let v: i32 = rng.gen_range(r1..r2);
                 
                 var = v.to_string();
+            }
+
+            "randclr" => {
+                let color = colors.choose(&mut rng);
+
+                pyu::change_color(color.unwrap().trim());
             }
 
             "" => {}

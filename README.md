@@ -64,6 +64,12 @@ printpv Your name is:
 // Outputs: Your name is: Bob
 ```
 
+To set a variable to a randomly generated number you can use `rand`
+```
+rand 0 50
+printpv The random number is:
+```
+
 There are much more keywords to use variables but we will explain those later.
 
 ### Utility keywords
@@ -82,6 +88,8 @@ print I am blue!
 ```
 
 List of colors are: red, blue, green, yellow, magenta, cyan, white, black
+
+For random colors simply use `randclr`
 
 You can clear the output using `clear`
 ```
@@ -239,3 +247,10 @@ You can create delays.
 wait amount_of_seconds
 print Delayed!
 ```
+
+## Gallery
+
+<img src="./images/extension.png"><br>
+Extensibility with JavaScript
+<img src="./images/saturn.png"><br>
+Rainbow Planets
