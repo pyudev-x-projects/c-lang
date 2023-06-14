@@ -1,3 +1,13 @@
+# 2023 Jun 14: Small Changes
+
+Move installation and documentation to wiki.
+
+Added `neofetch` keyword because yes.
+
+Removed gallery and images.
+
+I guess thats pretty much it.
+
 # 2023 Jun 13: Normal Feature Update
 
 Added `randclr` keyword.
@@ -24,4 +34,4 @@ Added more fun commands.
 
 Added JS and Lua extensibility.
 
-Added ability to delete files and the script itself.
+Added ability to delete files and the script itself. 

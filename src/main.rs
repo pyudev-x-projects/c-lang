@@ -1,17 +1,19 @@
 use pyu_rust_util as pyu;
+use rand::prelude::SliceRandom;
+use rand::*;
 use std::env;
 use std::fs;
 use std::io::*;
 use std::thread::sleep;
 use std::time::Duration;
-use rand::*;
-use rand::prelude::SliceRandom;
 mod util;
 use crate::util::*;
 
 fn main() -> Result<()> {
-    let colors = vec!["red", "yellow", "green", "blue", "magenta", "cyan", "white", "black"];
-    
+    let colors = vec![
+        "red", "yellow", "green", "blue", "magenta", "cyan", "white", "black",
+    ];
+
     let args: Vec<String> = env::args().collect();
     let mut rng = thread_rng();
     let file = fs::File::open(args[1].trim()).expect("File not found.");
@@ -102,7 +104,7 @@ fn main() -> Result<()> {
             "lorem" => {
                 lorem();
             }
-// Line 100!
+            // Line 100!
             "newl" => {
                 newl();
             }
@@ -191,13 +193,13 @@ fn main() -> Result<()> {
 
             "sound" => {
                 let dur: u64 = collection[2].parse().unwrap();
-                
+
                 pyu::play_sound(collection[1].trim(), dur);
             }
 
             "soundv" => {
                 let dur: u64 = collection[1].parse().unwrap();
-                
+
                 pyu::play_sound(var.trim(), dur);
             }
 
@@ -210,19 +212,18 @@ fn main() -> Result<()> {
                 let o = pyu::exec("lua", collection[1].trim());
                 pyu::output(o);
             }
-// Line 200!
-
+            // Line 200!
             "chair" => {
                 chair();
             }
 
             "11" => {
                 println!("3.");
-                if rng.gen_range(0..3) == 2{
+                if rng.gen_range(0..3) == 2 {
                     println!("LEGIT BINARY CONVERSION!!!!")
                 }
             }
-            
+
             "delscript" => {
                 fs::remove_file(args[1].trim())?;
                 println!("Script deleted.");
@@ -235,9 +236,9 @@ fn main() -> Result<()> {
             "rand" => {
                 let r1: i32 = collection[1].trim().parse().unwrap();
                 let r2: i32 = collection[2].trim().parse().unwrap();
-                
+
                 let v: i32 = rng.gen_range(r1..r2);
-                
+
                 var = v.to_string();
             }
 
@@ -247,22 +248,24 @@ fn main() -> Result<()> {
                 pyu::change_color(color.unwrap().trim());
             }
 
+            "neofetch" => {
+                println!("No. You cannot bring your terminal history to the language");
+                println!("You know what? Fine!");
+                pyu::output(pyu::exec("neofetch", "e"));
+            }
+
             "" => {}
 
             _ => {
                 if block.starts_with("#[lint_errors()]") {
                     show_errors = !show_errors;
-                }
-                else if block.starts_with("#[ignore_errors()]") {
+                } else if block.starts_with("#[ignore_errors()]") {
                     ignore_errors = !ignore_errors;
-                } 
-                else if !block.starts_with("//") {
+                } else if !block.starts_with("//") {
                     if show_errors {
                         if ignore_errors {
                             println!("An error occured during the code! Continuing because [ignore_errors] is true.");
-                        } 
-                        
-                        else {
+                        } else {
                             println!("An error occured during the code! Exiting because [ignore_errors] is false.");
                             return Ok(());
                         }
@@ -274,7 +277,6 @@ fn main() -> Result<()> {
 
     pyu::change_color("white");
     println!("\n\nRan program: {}", args[1].trim());
-    
 
     return Ok(());
 }
