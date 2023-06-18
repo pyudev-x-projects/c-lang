@@ -1,3 +1,17 @@
+# 2023 Jun 17: String X Output update
+
+Added the `stradd` `straddv` and `vstradd` keywords for adding text together.
+
+Added the `throw` keyword to throw custom errors.
+
+Added the `exit` keyword to exit the program.
+
+Added the `clj` keyword for clojure extensibility.
+
+All new features will be in the documentation.
+
+Next update might come with commented code.
+
 # 2023 Jun 14: Small Changes
 
 Move installation and documentation to wiki.

@@ -21,9 +21,19 @@ fn main() -> Result<()> {
     let mut var = String::from("nil");
     let mut show_errors = true;
     let mut ignore_errors = true;
+    let mut current_line = 0;
     // My code, is the most unreadable type of code.
 
+    fn exit() -> Result<()> {
+        pyu::change_color("white");
+        let args: Vec<String> = env::args().collect();
+        println!("\n\nRan program {}", args[1].trim());
+        return Ok(());
+    }
+
     for v in reader.lines() {
+        current_line += 1;
+        
         let line = v?;
 
         let split = line.split_whitespace();
@@ -92,7 +102,7 @@ fn main() -> Result<()> {
                     }
 
                     _ => {
-                        println!("Invalid operator.");
+                        println!("Invalid operator '{}'.", operator);
                     }
                 }
             }
@@ -127,6 +137,16 @@ fn main() -> Result<()> {
 
             "count" => {
                 let n: i32 = collection[1].parse().expect("Could not parse");
+
+                let v = pyu::number_vec(n);
+
+                for i in v {
+                    println!("{}", i);
+                }
+            }
+
+            "countv" => {
+                let n: i32 = var.trim().parse().expect("Could not parse");
 
                 let v = pyu::number_vec(n);
 
@@ -254,29 +274,71 @@ fn main() -> Result<()> {
                 pyu::output(pyu::exec("neofetch", "e"));
             }
 
+            "exit" => {
+                return exit();
+            }
+
+            "stradd" => {
+                let string = collection[1].trim();
+                let string2 = collection[2].trim();
+
+                var = String::from(string).to_owned() + string2;
+            }
+
+            "straddv" => {
+                let string = collection[1].trim();
+
+                var = String::from(string).to_owned() + var.trim();
+            }
+
+            "vstradd" => {
+                let string = collection[2].trim();
+
+                var = var + string;
+            }
+
+            // Line 300
+            "throw" => {
+                if show_errors {
+                    println!("Exception thrown at line: {} with message: {}", current_line, collection[1].trim());
+                    if ignore_errors {
+                        println!("Continuing because [ignore_errors] is true.");
+                    } else {
+                        println!("Exiting because [ignore_errors] is false.");
+                        return exit();
+                    } 
+                }
+            }
+
+            "clj" => {
+                let o = pyu::exec("clj", collection[1].trim());
+                pyu::output(o);
+            }
+
             "" => {}
 
             _ => {
                 if block.starts_with("#[lint_errors()]") {
                     show_errors = !show_errors;
-                } else if block.starts_with("#[ignore_errors()]") {
+                } 
+                else if block.starts_with("#[ignore_errors()]") {
                     ignore_errors = !ignore_errors;
-                } else if !block.starts_with("//") {
+                } 
+                else if !block.starts_with("//") {
                     if show_errors {
+                        
                         if ignore_errors {
-                            println!("An error occured during the code! Continuing because [ignore_errors] is true.");
+                            println!("An error occurred during the code! Continuing because [ignore_errors] is true.");
                         } else {
-                            println!("An error occured during the code! Exiting because [ignore_errors] is false.");
-                            return Ok(());
+                            println!("An error occurred during the code! Exiting because [ignore_errors] is false.");
+                            return exit();
                         }
+
                     }
                 }
             }
         }
     }
 
-    pyu::change_color("white");
-    println!("\n\nRan program: {}", args[1].trim());
-
-    return Ok(());
+    return exit();
 }
