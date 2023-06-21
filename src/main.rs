@@ -25,7 +25,7 @@ fn main() -> Result<()> {
     // My code, is the most unreadable type of code.
 
     fn exit() -> Result<()> {
-        pyu::change_color("white");
+        pyu::funcs::change_color("white");
         let args: Vec<String> = env::args().collect();
         println!("\n\nRan program {}", args[1].trim());
         return Ok(());
@@ -76,7 +76,7 @@ fn main() -> Result<()> {
             }
 
             "input" => {
-                var = pyu::input("");
+                var = pyu::funcs::input("");
             }
 
             "printc" => {
@@ -108,7 +108,7 @@ fn main() -> Result<()> {
             }
 
             "setclr" => {
-                pyu::change_color(collection[1]);
+                pyu::funcs::change_color(collection[1]);
             }
 
             "lorem" => {
@@ -120,25 +120,25 @@ fn main() -> Result<()> {
             }
 
             "curl" => {
-                pyu::curl(collection[1]);
+                pyu::funcs::curl(collection[1]);
             }
 
             "curlv" => {
-                pyu::curl(var.trim());
+                pyu::funcs::curl(var.trim());
             }
 
             "wget" => {
-                pyu::exec("wget", collection[1]);
+                pyu::funcs::exec("wget", collection[1]);
             }
 
             "wgetv" => {
-                pyu::exec("wget", var.trim());
+                pyu::funcs::exec("wget", var.trim());
             }
 
             "count" => {
                 let n: i32 = collection[1].parse().expect("Could not parse");
 
-                let v = pyu::number_vec(n);
+                let v = pyu::funcs::number_vec(n);
 
                 for i in v {
                     println!("{}", i);
@@ -148,7 +148,7 @@ fn main() -> Result<()> {
             "countv" => {
                 let n: i32 = var.trim().parse().expect("Could not parse");
 
-                let v = pyu::number_vec(n);
+                let v = pyu::funcs::number_vec(n);
 
                 for i in v {
                     println!("{}", i);
@@ -176,15 +176,15 @@ fn main() -> Result<()> {
             }
 
             "exec" => {
-                let output = pyu::exec(collection[1], collection[2]);
+                let output = pyu::funcs::exec(collection[1], collection[2]);
 
-                pyu::output(output);
+                pyu::funcs::output(output);
             }
 
             "execv" => {
-                let output = pyu::exec(collection[1], &var.trim());
+                let output = pyu::funcs::exec(collection[1], &var.trim());
 
-                pyu::output(output);
+                pyu::funcs::output(output);
             }
 
             "date" => {
@@ -214,23 +214,23 @@ fn main() -> Result<()> {
             "sound" => {
                 let dur: u64 = collection[2].parse().unwrap();
 
-                pyu::play_sound(collection[1].trim(), dur);
+                pyu::funcs::play_sound(collection[1].trim(), dur);
             }
 
             "soundv" => {
                 let dur: u64 = collection[1].parse().unwrap();
 
-                pyu::play_sound(var.trim(), dur);
+                pyu::funcs::play_sound(var.trim(), dur);
             }
 
             "js" => {
-                let o = pyu::exec("node", collection[1].trim());
-                pyu::output(o);
+                let o = pyu::funcs::exec("node", collection[1].trim());
+                pyu::funcs::output(o);
             }
 
             "lua" => {
-                let o = pyu::exec("lua", collection[1].trim());
-                pyu::output(o);
+                let o = pyu::funcs::exec("lua", collection[1].trim());
+                pyu::funcs::output(o);
             }
             // Line 200!
             "chair" => {
@@ -265,13 +265,13 @@ fn main() -> Result<()> {
             "randclr" => {
                 let color = colors.choose(&mut rng);
 
-                pyu::change_color(color.unwrap().trim());
+                pyu::funcs::change_color(color.unwrap().trim());
             }
 
             "neofetch" => {
                 println!("No. You cannot bring your terminal history to the language");
                 println!("You know what? Fine!");
-                pyu::output(pyu::exec("neofetch", "e"));
+                pyu::funcs::output(pyu::funcs::exec("neofetch", "e"));
             }
 
             "exit" => {
@@ -311,8 +311,12 @@ fn main() -> Result<()> {
             }
 
             "clj" => {
-                let o = pyu::exec("clj", collection[1].trim());
-                pyu::output(o);
+                let o = pyu::funcs::exec("clj", collection[1].trim());
+                pyu::funcs::output(o);
+            }
+
+            "ls" => {
+                
             }
 
             "" => {}

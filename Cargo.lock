@@ -88,7 +88,7 @@ checksum = "89b2fd2a0dcf38d7971e2194b6b6eebab45ae01067456a7fd93d5547a61b70be"
 
 [[package]]
 name = "c-lang"
-version = "0.1.7"
+version = "0.1.8"
 dependencies = [
  "pyu_rust_util",
  "rand",
@@ -587,9 +587,9 @@ dependencies = [
 
 [[package]]
 name = "pyu_rust_util"
-version = "0.1.71"
+version = "0.1.80"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c2c3dd27a870c043db42f32d77da7ac3bf14250d303e49dec837654b9e2f5e56"
+checksum = "78beea733c2defaf852bb45cacd6d166a47ca85fc42b6fa3d9fa71bde7b7d284"
 dependencies = [
  "rodio",
  "termion",

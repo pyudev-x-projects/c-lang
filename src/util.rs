@@ -1,11 +1,11 @@
 use pyu_rust_util as pyu;
 
 pub fn date() {
-    pyu::output(pyu::exec("", ""));
+    pyu::funcs::output(pyu::funcs::exec("date", "-R"));
 }
 
 pub fn clear() {
-   pyu::output(pyu::exec("clear", "-x")); 
+   pyu::funcs::output(pyu::funcs::exec("clear", "-x")); 
 }
 
 pub fn lorem() {
